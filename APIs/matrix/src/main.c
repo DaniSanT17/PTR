@@ -21,11 +21,21 @@ static void print_matrix(const char *const name, const Matrix m) {
 }
 
 int main(int argc, char **argv) {
-	Matrix m = matrix_identity(3,3);
-	Matrix m2 = matrix_ones(3,3);
-	Matrix m3 = matrix_sum(m, m2);
-	print_matrix("M", m3);
+	double m1Values[9] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+	double m2Values[9] =  {9, 8, 7, 6, 5, 4, 3, 2, 1};
+	Matrix m; Matrix m2;
+	m.ncols = 3; m.nlins = 3;
+	m2.ncols = 3; m2.nlins = 3;
+	m.values = &m1Values;
+	m2.values = &m2Values;
 	
+	Matrix m3 = matrix_sum(m, m2);
+	print_matrix("Ms", m3);
+	m3 = matrix_dif(m, m2);
+	print_matrix("Md", m3);
+	m3 = matrix_scalar_mul(2, m3);
+	print_matrix("Md", m3);
+
 	matrix_free(&m);
 	print_matrix("M", m);
 	

@@ -94,7 +94,7 @@ Matrix matrix_apply(double (*f)(double val), Matrix m) {
 		for(int i=0; i < res.nlins; i++)
 			for(int j=0; j < res.ncols; j++)
 				res.values[i*res.ncols + j] = f(m.values[i*res.ncols + j]);
-		return m;
+		return res;
 	}
 	else
 		return matrix_nul;
@@ -117,9 +117,49 @@ Matrix matrix_sum(Matrix A, Matrix B){
 		return res;
 	}else{
 		printf("ERROR: Matrix sizes cannot be diferents for sum operation.\n");
+		return matrix_nul;
+
 	}
 
 	return res;
 }
+
+Matrix matrix_dif(Matrix A, Matrix B){
+	Matrix res;
+
+	if(A.nlins == B.nlins && A.ncols == B.nlins){	
+		res.nlins = A.nlins;
+		res.ncols = A.ncols;
+		res.values = calloc(res.nlins * res.ncols, sizeof(double));
+		for(int i = 0; i < matrix_nlins(A); i++) {
+			res.values[i*res.ncols] = A.values[i*A.ncols ] - B.values[i*B.ncols ];
+			for(int j = 1; j < matrix_ncols(B); j++) {
+				res.values[i*res.ncols + j] = A.values[i*A.ncols + j] - B.values[i*B.ncols + j];
+			}
+		}
+		return res;
+	}else{
+		printf("ERROR: Matrix sizes cannot be diferents for sum operation.\n");
+		return matrix_nul;
+	}
+
+	return res;
+}
+
+Matrix matrix_scalar_mul(double n, Matrix m){
+	Matrix res;
+	res.nlins = m.nlins;
+	res.ncols = m.ncols;
+	res.values = calloc(res.nlins * res.ncols, sizeof(double));
+	if(m.values) {
+		for(int i=0; i < res.nlins; i++)
+			for(int j=0; j < res.ncols; j++)
+				res.values[i*res.ncols + j] = n * m.values[i*res.ncols + j];
+		return res;
+	}
+	else
+		return matrix_nul;
+}
+
 
 Matrix matrix_mul(Matrix A, Matrix B);

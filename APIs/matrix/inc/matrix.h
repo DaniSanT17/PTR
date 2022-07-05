@@ -17,7 +17,6 @@ Matrix matrix_identity(unsigned int nlins, unsigned int ncols);
 Matrix matrix_copy(Matrix m);
 Matrix matrix_apply(double (*f)(double val), Matrix m);
 
-Matrix matrix_sum(Matrix A, Matrix B);
 
 void matrix_free(Matrix *m);
 
@@ -26,7 +25,10 @@ unsigned int matrix_nlins(Matrix m);
 unsigned int matrix_ncols(Matrix m);
 
 
-
+Matrix matrix_scalar_mul(double n, Matrix m);
 Matrix matrix_mul(Matrix A, Matrix B);
+Matrix matrix_sum(Matrix A, Matrix B);
+Matrix matrix_dif(Matrix A, Matrix B);
+
 
 #endif
