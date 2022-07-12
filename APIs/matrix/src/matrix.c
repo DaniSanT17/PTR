@@ -108,12 +108,13 @@ Matrix matrix_sum(Matrix A, Matrix B){
 		res.nlins = A.nlins;
 		res.ncols = A.ncols;
 		res.values = calloc(res.nlins * res.ncols, sizeof(double));
-		for(int i = 0; i < matrix_nlins(A); i++) {
-			res.values[i*res.ncols] = A.values[i*A.ncols ] + B.values[i*B.ncols ];
-			for(int j = 1; j < matrix_ncols(B); j++) {
-				res.values[i*res.ncols + j] = A.values[i*A.ncols + j] + B.values[i*B.ncols + j];
-			}
-		}
+		if (A.values && B.values){	
+			for(int i = 0; i < matrix_nlins(A); i++) {
+				res.values[i*res.ncols] = A.values[i*A.ncols ] + B.values[i*B.ncols ];
+				for(int j = 1; j < matrix_ncols(B); j++) {
+					res.values[i*res.ncols + j] = A.values[i*A.ncols + j] + B.values[i*B.ncols + j];
+				}
+			}}
 		return res;
 	}else{
 		printf("ERROR: Matrix sizes cannot be diferents for sum operation.\n");
@@ -131,12 +132,13 @@ Matrix matrix_dif(Matrix A, Matrix B){
 		res.nlins = A.nlins;
 		res.ncols = A.ncols;
 		res.values = calloc(res.nlins * res.ncols, sizeof(double));
-		for(int i = 0; i < matrix_nlins(A); i++) {
-			res.values[i*res.ncols] = A.values[i*A.ncols ] - B.values[i*B.ncols ];
-			for(int j = 1; j < matrix_ncols(B); j++) {
-				res.values[i*res.ncols + j] = A.values[i*A.ncols + j] - B.values[i*B.ncols + j];
-			}
-		}
+		if (A.values && B.values){
+			for(int i = 0; i < matrix_nlins(A); i++) {
+				res.values[i*res.ncols] = A.values[i*A.ncols ] - B.values[i*B.ncols ];
+				for(int j = 1; j < matrix_ncols(B); j++) {
+					res.values[i*res.ncols + j] = A.values[i*A.ncols + j] - B.values[i*B.ncols + j];
+				}
+		}}
 		return res;
 	}else{
 		printf("ERROR: Matrix sizes cannot be diferents for sum operation.\n");
@@ -162,4 +164,31 @@ Matrix matrix_scalar_mul(double n, Matrix m){
 }
 
 
-Matrix matrix_mul(Matrix A, Matrix B);
+Matrix matrix_mul(Matrix A, Matrix B){
+	if(A.ncols == B.nlins){
+		Matrix res = matrix_zeros(A.nlins, B.ncols);	
+
+		if (A.values && B.values){
+			for(int i=0; i < res.nlins; i++){
+				printf("\nC(%d,%d) = 0", i+1, 1);
+				for (int k=0; k < A.ncols; k++){
+						printf("+ %f*%f ", A.values[i*A.ncols+k], B.values[k*B.ncols]);
+						res.values[i*res.ncols ] = res.values[i*res.ncols ] + A.values[i*A.ncols+k]*B.values[k*B.ncols];
+					}
+				for(int j=1; j < res.ncols; j++){
+					printf("\nC(%d,%d) = 0", i+1, j+1);
+					for (int k=0; k < A.ncols; k++){
+						printf("+ %f*%f ", A.values[i*A.ncols+k], B.values[k*B.ncols+j]);
+						res.values[i*res.ncols + j] = res.values[i*res.ncols + j] + A.values[i*A.ncols+k]*B.values[k*B.ncols + j];
+					}
+				}	
+			}
+			return res;
+		}
+
+	}else{
+		printf("ERROR: Matrix A column number and Matrix B lines number cannot be diferents for multiplication operation.\n");
+	}
+	return matrix_nul;
+	
+};
