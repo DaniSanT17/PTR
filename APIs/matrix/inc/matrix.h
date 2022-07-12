@@ -29,6 +29,6 @@ Matrix matrix_scalar_mul(double n, Matrix m);
 Matrix matrix_mul(Matrix A, Matrix B);
 Matrix matrix_sum(Matrix A, Matrix B);
 Matrix matrix_dif(Matrix A, Matrix B);
-
+int matrix_compare(Matrix A, Matrix B);
 
 #endif

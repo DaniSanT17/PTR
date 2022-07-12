@@ -170,15 +170,11 @@ Matrix matrix_mul(Matrix A, Matrix B){
 
 		if (A.values && B.values){
 			for(int i=0; i < res.nlins; i++){
-				printf("\nC(%d,%d) = 0", i+1, 1);
 				for (int k=0; k < A.ncols; k++){
-						printf("+ %f*%f ", A.values[i*A.ncols+k], B.values[k*B.ncols]);
 						res.values[i*res.ncols ] = res.values[i*res.ncols ] + A.values[i*A.ncols+k]*B.values[k*B.ncols];
 					}
 				for(int j=1; j < res.ncols; j++){
-					printf("\nC(%d,%d) = 0", i+1, j+1);
 					for (int k=0; k < A.ncols; k++){
-						printf("+ %f*%f ", A.values[i*A.ncols+k], B.values[k*B.ncols+j]);
 						res.values[i*res.ncols + j] = res.values[i*res.ncols + j] + A.values[i*A.ncols+k]*B.values[k*B.ncols + j];
 					}
 				}	
@@ -192,3 +188,23 @@ Matrix matrix_mul(Matrix A, Matrix B){
 	return matrix_nul;
 	
 };
+
+
+int matrix_compare(Matrix A, Matrix B){
+	if(A.ncols == B.ncols && A.nlins == B.nlins){
+		for(int i = 0; i < matrix_nlins(A); i++) {
+			if(matrix_value(A, i, 0) != matrix_value(B, i, 0)){
+				return 0;
+			}
+		for(int j = 1; j < matrix_ncols(A); j++) {
+			if(matrix_value(A, i, j) != matrix_value(B, i, j)){
+				return 0;
+			}
+		}
+	}
+	}else{
+		return 0;
+	}
+
+	return 1;
+}

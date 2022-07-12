@@ -21,15 +21,25 @@ static void print_matrix(const char *const name, const Matrix m) {
 }
 
 int main(int argc, char **argv) {
-	double m1Values[9] = {3, 1, 2, -1, 0, 4};
-	double m2Values[9] =  {1, -1, 2, 3, 0, 5};
-	Matrix m; Matrix m2 = matrix_identity(2,2);
+	double m1Values[9] = {3, 1, 2, -1, 0, 4, 2, 4, 5};
+	double m2Values[9] =  {3, 1, 2, -1, 0, 4, 2, 4, 5};
+	Matrix m; Matrix m2 = matrix_identity(3,3);
 
-	m.ncols = 2; m.nlins = 3;
+	m.ncols = 3; m.nlins = 3;
 	// m2.ncols = 3; m2.nlins = 1;
 	m.values = &m1Values;
 	// m2.values = &m2Values;
-	
+	if(matrix_compare(m, m2)){
+		printf("\nMatrizes iguais!!!!");
+	}else{
+		printf("\nDiferentes");
+	}
+	m2.values = &m2Values;
+	if(matrix_compare(m, m2)){
+		printf("\nMatrizes iguais!!!!");
+	}else{
+		printf("\nDiferentes");
+	}
 	Matrix m3 = matrix_mul(m, m2);
 	print_matrix("Ms", m3);
 
