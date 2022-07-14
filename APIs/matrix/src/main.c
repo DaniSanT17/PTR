@@ -21,30 +21,25 @@ static void print_matrix(const char *const name, const Matrix m) {
 }
 
 int main(int argc, char **argv) {
-	double m1Values[9] = {3, 1, 2, -1, 0, 4, 2, 4, 5};
-	double m2Values[9] =  {3, 1, 2, -1, 0, 4, 2, 4, 5};
+	double m1Values[9] = {2, -2, -1, 3, -4, 1, 1, 1, 5};
+	double m2Values[16] =  {4, 5, -3, 0, 2, -1, 3, 1, 1, -3, 2, 1, 0, 2, -2, 5};
 	Matrix m; Matrix m2 = matrix_identity(3,3);
 
 	m.ncols = 3; m.nlins = 3;
-	// m2.ncols = 3; m2.nlins = 1;
+	m2.ncols = 4; m2.nlins = 4;
 	m.values = &m1Values;
-	// m2.values = &m2Values;
-	if(matrix_compare(m, m2)){
-		printf("\nMatrizes iguais!!!!");
-	}else{
-		printf("\nDiferentes");
-	}
 	m2.values = &m2Values;
-	if(matrix_compare(m, m2)){
-		printf("\nMatrizes iguais!!!!");
-	}else{
-		printf("\nDiferentes");
-	}
-	Matrix m3 = matrix_mul(m, m2);
-	print_matrix("Ms", m3);
+	double det = matrix_det(m);
+	printf("\nDeterminante da matriz M = %f", det);
+	det = matrix_det(m2);
 
-	matrix_free(&m);
+	printf("\nDeterminante da matriz M = %f", det);
+
+	
 	print_matrix("M", m);
 	
+	
+	matrix_free(&m);
+
 	return 0;
 }

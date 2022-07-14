@@ -208,3 +208,66 @@ int matrix_compare(Matrix A, Matrix B){
 
 	return 1;
 }
+
+double matrix_det(Matrix m){
+
+	if(m.values && m.nlins==m.ncols){
+		Matrix aux = matrix_copy(m);
+		double factor = 0;	
+    	double temp = 0;	
+    	int count = 0;	
+
+		// faz a transformação em um triangulo...
+		for(int i = 0; i < matrix_nlins(m); i++)
+		{
+			if(matrix_value(aux, i, 0) == 0)
+			{
+				for(int k = i; k < aux.nlins; k++)
+				{
+					if(matrix_value(aux, k, i) != 0)
+					{
+						for(int j = 0; j < aux.nlins; j++)
+						{
+							temp = matrix_value(aux, i, j);
+							aux.values[i*aux.nlins + j] = matrix_value(aux, k, j);
+							aux.values[k*aux.nlins + j] = temp;
+						}
+						k = aux.nlins;
+					}
+				}
+				count++;
+			}
+
+			if(matrix_value(aux, i, i) != 0)
+			{
+				for(int k = i + 1; k < aux.nlins; k++)
+				{
+					factor = -1.0 * matrix_value(aux, k, i) /  matrix_value(aux, i, i);
+					for(int j = i; j < aux.nlins; j++)
+					{
+						aux.values[k*aux.nlins + j] = aux.values[k*aux.nlins + j] + (factor * aux.values[i*aux.nlins + j]);
+					}
+				}
+			}
+		}
+
+		temp = 1.0;
+		// Calcula o determinante
+		printf("\nTemp = 0 ");
+		for(int i = 0; i < aux.nlins; i++)
+		{
+			temp *= matrix_value(aux, i, i);
+		}
+
+		if(count % 2 == 0)
+			return temp;
+		else
+			return -1.0 * temp;
+
+	}else{
+		printf("ERROR: The input is not a Square Matrix or his value is NULL!!!");
+	}
+  
+	
+    
+}
