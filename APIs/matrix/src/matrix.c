@@ -212,7 +212,7 @@ int matrix_compare(Matrix A, Matrix B){
 double matrix_det(Matrix m){
 
 	if(m.values && m.nlins==m.ncols){
-		Matrix aux = matrix_copy(m);
+		Matrix aux = m;
 		double factor = 0;	
     	double temp = 0;	
     	int count = 0;	
