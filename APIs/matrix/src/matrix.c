@@ -4,6 +4,7 @@
 
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "matrix.h"
 
@@ -107,6 +108,32 @@ Matrix matrix_apply(double (*f)(double val), Matrix m) {
 		return matrix_nul;
 }
 
+Matrix matrix_create(){
+	Matrix res = matrix_nul;
+	int nlins, ncols;
+	printf("Lines number: ");
+	scanf("%d", &nlins);
+	printf("Columns number: ");
+	scanf("%d", &ncols);
+	if(nlins >0 && ncols >0)
+	{
+		res.nlins = nlins;
+		res.ncols = ncols;
+		res.values = calloc(res.nlins * res.ncols, sizeof(double));
+		for(int i = 0; i < nlins; i++)
+			{
+					for(int j = 0; j < ncols; j++)
+					{
+							printf("M[%d ; %d] => ", i+1, j+1);
+							scanf("%lf", &VALUES(res, i, j));
+					}
+			}
+	}else {
+		printf("ERROR: columns number and lines number must be greater than 0!\n");
+	}
+	return res;
+}
+
 
 Matrix matrix_sum(Matrix A, Matrix B){
 	Matrix res;
@@ -155,20 +182,6 @@ Matrix matrix_dif(Matrix A, Matrix B){
 	return res;
 }
 
-Matrix matrix_scalar_mul(double n, Matrix m){
-	Matrix res;
-	res.nlins = m.nlins;
-	res.ncols = m.ncols;
-	res.values = calloc(res.nlins * res.ncols, sizeof(double));
-	if(m.values) {
-		for(int i=0; i < res.nlins; i++)
-			for(int j=0; j < res.ncols; j++)
-				res.values[i*res.ncols + j] = n * m.values[i*res.ncols + j];
-		return res;
-	}
-	else
-		return matrix_nul;
-}
 
 
 Matrix matrix_mul(Matrix A, Matrix B){
@@ -196,6 +209,48 @@ Matrix matrix_mul(Matrix A, Matrix B){
 	
 };
 
+Matrix matrix_scalar_sum(double n, Matrix m){
+	Matrix res;
+	res.nlins = m.nlins;
+	res.ncols = m.ncols;
+	res.values = calloc(res.nlins * res.ncols, sizeof(double));
+	if(m.values) {
+		for(int i=0; i < res.nlins; i++)
+			for(int j=0; j < res.ncols; j++)
+				res.values[i*res.ncols + j] = n + m.values[i*res.ncols + j];
+		return res;
+	}
+	else
+		return matrix_nul;
+}
+Matrix matrix_scalar_dif(double n, Matrix m){
+	Matrix res;
+	res.nlins = m.nlins;
+	res.ncols = m.ncols;
+	res.values = calloc(res.nlins * res.ncols, sizeof(double));
+	if(m.values) {
+		for(int i=0; i < res.nlins; i++)
+			for(int j=0; j < res.ncols; j++)
+				res.values[i*res.ncols + j] = n - m.values[i*res.ncols + j];
+		return res;
+	}
+	else
+		return matrix_nul;
+}
+Matrix matrix_scalar_mul(double n, Matrix m){
+	Matrix res;
+	res.nlins = m.nlins;
+	res.ncols = m.ncols;
+	res.values = calloc(res.nlins * res.ncols, sizeof(double));
+	if(m.values) {
+		for(int i=0; i < res.nlins; i++)
+			for(int j=0; j < res.ncols; j++)
+				res.values[i*res.ncols + j] = n * m.values[i*res.ncols + j];
+		return res;
+	}
+	else
+		return matrix_nul;
+}
 
 int matrix_compare(Matrix A, Matrix B){
 	if(A.ncols == B.ncols && A.nlins == B.nlins){
@@ -260,7 +315,6 @@ double matrix_det(Matrix m){
 
 		temp = 1.0;
 		// Calcula o determinante
-		
 		for(int i = 0; i < aux.nlins; i++)
 		{
 			temp *= matrix_value(aux, i, i);
@@ -272,9 +326,7 @@ double matrix_det(Matrix m){
 			return -1.0 * temp;
 
 	}else{
-		printf("ERROR: The input is not a Square Matrix or his value is NULL!!!");
+		printf("ERROR: The input is not a Square Matrix or his value is NULL!!!\n");
 	}
-  
-	
-    
+	return 0;
 }

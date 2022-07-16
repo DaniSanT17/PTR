@@ -24,12 +24,18 @@ double       matrix_value(Matrix m, int i, int j);
 unsigned int matrix_nlins(Matrix m);
 unsigned int matrix_ncols(Matrix m);
 
+Matrix matrix_create();
+Matrix matrix_scalar_mul(double n, Matrix m); // Done
+Matrix matrix_scalar_sum(double n, Matrix m); // Done
+Matrix matrix_scalar_dif(double n, Matrix m); // Done
+Matrix matrix_mul(Matrix A, Matrix B); // Done
+Matrix matrix_sum(Matrix A, Matrix B); // Done
+Matrix matrix_dif(Matrix A, Matrix B); // Done
+int matrix_compare(Matrix A, Matrix B); // Done
+double matrix_det(Matrix m); // Done
+Matrix matrix_trasnspose(Matrix m);
+Matrix matrix_inverse(Matrix m);
+Matrix matrix_print(Matrix m);
 
-Matrix matrix_scalar_mul(double n, Matrix m);
-Matrix matrix_mul(Matrix A, Matrix B);
-Matrix matrix_sum(Matrix A, Matrix B);
-Matrix matrix_dif(Matrix A, Matrix B);
-double matrix_det(Matrix m);
-int matrix_compare(Matrix A, Matrix B);
 
 #endif
