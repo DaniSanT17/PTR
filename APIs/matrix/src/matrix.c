@@ -52,8 +52,12 @@ Matrix matrix_identity(unsigned int nlins, unsigned int ncols) {
 
 void matrix_free(Matrix *m) {
 	if(m) {
-		free(m->values);
+		printf("1\n");
+		double *oi = &(m->values);
+		free(oi);
+		printf("2\n");
 		*m = matrix_nul;
+		printf("3\n");
 	}
 }
 
@@ -134,6 +138,18 @@ Matrix matrix_create(){
 	return res;
 }
 
+void print_matrix(const char *const name, const Matrix m) {
+	printf("\n %s(%d:%d)=", name, m.nlins, m.ncols);
+	printf("\n\t[\n");
+	for(int i = 0; i < matrix_nlins(m); i++) {
+		printf("\t[%4.4f", matrix_value(m, i, 0));
+		for(int j = 1; j < matrix_ncols(m); j++) {
+			printf(", %4.4f", matrix_value(m, i, j));
+		}
+		printf("]\n");
+	}
+	printf("]\n");
+}
 
 Matrix matrix_sum(Matrix A, Matrix B){
 	Matrix res;
@@ -158,7 +174,6 @@ Matrix matrix_sum(Matrix A, Matrix B){
 
 	return res;
 }
-
 Matrix matrix_dif(Matrix A, Matrix B){
 	Matrix res;
 
@@ -181,9 +196,6 @@ Matrix matrix_dif(Matrix A, Matrix B){
 
 	return res;
 }
-
-
-
 Matrix matrix_mul(Matrix A, Matrix B){
 	if(A.ncols == B.nlins){
 		Matrix res = matrix_zeros(A.nlins, B.ncols);	
@@ -329,4 +341,18 @@ double matrix_det(Matrix m){
 		printf("ERROR: The input is not a Square Matrix or his value is NULL!!!\n");
 	}
 	return 0;
+}
+
+Matrix matrix_transpose(Matrix m){
+	Matrix res;
+	res.ncols = m.nlins;
+	res.nlins = m.ncols;
+	res.values = calloc(res.nlins * res.ncols, sizeof(double));
+
+	for(int i=0; i<res.nlins; i++){
+		for(int j=0; j<res.ncols; j++){
+			VALUES(res, i, j) = VALUES(m, j, i);
+		}
+	}
+	return res;
 }
