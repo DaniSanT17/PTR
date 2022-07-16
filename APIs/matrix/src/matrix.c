@@ -62,28 +62,35 @@ double matrix_getValue(Matrix m, int i, int j) {
 	return m.values[i*m.ncols + j];
 }
 
+// Número de linhas
+
 unsigned int matrix_nlins(Matrix m) {
 	return m.nlins;
 }
+
+// Número de colunas
 
 unsigned int matrix_ncols(Matrix m) {
 	return m.ncols;
 }
 
+// Cópia de matrizes
+
 Matrix matrix_copy(Matrix m) {
 	Matrix res;
 	res.nlins = m.nlins;
 	res.ncols = m.ncols;
-	m.values = calloc(res.nlins * res.ncols, sizeof(double));
+	res.values = calloc(m.nlins * m.ncols, sizeof(double));
 	if(m.values) {
 		for(int i=0; i < res.nlins; i++)
 			for(int j=0; j < res.ncols; j++)
 				VALUES(res, i, j) = VALUES(m, i, j);
-		return m;
+		return res;
 	}
 	else
 		return matrix_nul;
 }
+
 
 Matrix matrix_apply(double (*f)(double val), Matrix m) {
 	Matrix res;
@@ -212,15 +219,15 @@ int matrix_compare(Matrix A, Matrix B){
 double matrix_det(Matrix m){
 
 	if(m.values && m.nlins==m.ncols){
-		Matrix aux = m;
+		Matrix aux = matrix_copy(m);
 		double factor = 0;	
     	double temp = 0;	
     	int count = 0;	
 
 		// faz a transformação em um triangulo...
-		for(int i = 0; i < matrix_nlins(m); i++)
+		for(int i = 0; i < matrix_nlins(m)-1; i++)
 		{
-			if(matrix_value(aux, i, 0) == 0)
+			if(matrix_value(aux, i, i) == 0)
 			{
 				for(int k = i; k < aux.nlins; k++)
 				{
@@ -229,8 +236,8 @@ double matrix_det(Matrix m){
 						for(int j = 0; j < aux.nlins; j++)
 						{
 							temp = matrix_value(aux, i, j);
-							aux.values[i*aux.nlins + j] = matrix_value(aux, k, j);
-							aux.values[k*aux.nlins + j] = temp;
+							VALUES(aux, i, j) = matrix_value(aux, k, j);
+							VALUES(aux, k, j) = temp;
 						}
 						k = aux.nlins;
 					}
@@ -245,7 +252,7 @@ double matrix_det(Matrix m){
 					factor = -1.0 * matrix_value(aux, k, i) /  matrix_value(aux, i, i);
 					for(int j = i; j < aux.nlins; j++)
 					{
-						aux.values[k*aux.nlins + j] = aux.values[k*aux.nlins + j] + (factor * aux.values[i*aux.nlins + j]);
+						VALUES(aux, k, j) = matrix_value(aux, k, j) + (factor * matrix_value(aux, i, j));
 					}
 				}
 			}
@@ -253,7 +260,7 @@ double matrix_det(Matrix m){
 
 		temp = 1.0;
 		// Calcula o determinante
-		printf("\nTemp = 0 ");
+		
 		for(int i = 0; i < aux.nlins; i++)
 		{
 			temp *= matrix_value(aux, i, i);
