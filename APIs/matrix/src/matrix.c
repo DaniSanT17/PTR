@@ -356,3 +356,33 @@ Matrix matrix_transpose(Matrix m){
 	}
 	return res;
 }
+
+Matrix matrix_inverse(Matrix m){
+	if(m.ncols == m.nlins){
+		Matrix aux = matrix_copy(m);
+		Matrix id = matrix_identity(m.nlins, m.ncols);
+		int k = 0, N= m.ncols;
+    float pivo = 0, n = 0;
+		for(int j = 0; j < N; j++){
+			pivo = matrix_value(aux,j,j);
+			for(k = 0; k < N; k++){
+				VALUES(aux, j, k) = matrix_value(aux, j,k)/(pivo); //L1 -> L1/pivo , L2 -> L2/pivo, L3 -> L3/pivo
+				VALUES(id,j,k) = matrix_value(id,j,k)/(pivo); //Ex: 1 0 0 / pivo  , 0 1 0 / pivo,   0 0 1/ pivo
+			}
+    
+			for(int i = 0; i < N; i++){
+				if(i != j){
+					n = matrix_value(aux,i,j);
+					for(int k = 0; k < N; k++){
+						VALUES(aux,i,k) = matrix_value(aux,i,k) - n*matrix_value(aux,j,k); //Ex: L2 -> L2 - ( 1"m" - L1) 
+						VALUES(id,i,k) = matrix_value(id,i,k) - n*matrix_value(id,j,k);  
+					}
+				}
+			}  
+		}
+		return id;
+	}else{
+		printf("ERROR: The input matrix must be a square\n");
+		return matrix_nul;
+	}
+}
