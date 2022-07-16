@@ -362,12 +362,12 @@ Matrix matrix_inverse(Matrix m){
 		Matrix aux = matrix_copy(m);
 		Matrix id = matrix_identity(m.nlins, m.ncols);
 		int k = 0, N= m.ncols;
-    float pivo = 0, n = 0;
+    float pivot = 0, n = 0;
 		for(int j = 0; j < N; j++){
-			pivo = matrix_value(aux,j,j);
+			pivot = matrix_value(aux,j,j);
 			for(k = 0; k < N; k++){
-				VALUES(aux, j, k) = matrix_value(aux, j,k)/(pivo); //L1 -> L1/pivo , L2 -> L2/pivo, L3 -> L3/pivo
-				VALUES(id,j,k) = matrix_value(id,j,k)/(pivo); //Ex: 1 0 0 / pivo  , 0 1 0 / pivo,   0 0 1/ pivo
+				VALUES(aux, j, k) = matrix_value(aux, j,k)/(pivot); //L1 -> L1/pivot , L2 -> L2/pivot, L3 -> L3/pivot
+				VALUES(id,j,k) = matrix_value(id,j,k)/(pivot); //Ex: 1 0 0 / pivot  , 0 1 0 / pivot,   0 0 1/ pivot
 			}
     
 			for(int i = 0; i < N; i++){
