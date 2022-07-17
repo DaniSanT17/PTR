@@ -53,8 +53,7 @@ Matrix matrix_identity(unsigned int nlins, unsigned int ncols) {
 void matrix_free(Matrix *m) {
 	if(m) {
 		printf("1\n");
-		double *oi = &(m->values);
-		free(oi);
+		free(m->values);
 		printf("2\n");
 		*m = matrix_nul;
 		printf("3\n");
@@ -119,7 +118,7 @@ Matrix matrix_create(){
 	scanf("%d", &nlins);
 	printf("Columns number: ");
 	scanf("%d", &ncols);
-	if(nlins >0 && ncols >0)
+	if(nlins > 0 && ncols >0)
 	{
 		res.nlins = nlins;
 		res.ncols = ncols;

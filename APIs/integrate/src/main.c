@@ -18,8 +18,8 @@ double f_squared(double a){
  
 int main() {
 
-	Integrate int_func = build_integrate(-5.0, 7.0, *f_squared);
-	printf("limite inferior: %lf, limite superior: %lf, f(2) = %lf", int_func.lowerl, int_func.upperl, (*(int_func.fPoly))(2));
+	Integral int_func = build_integrate(-5.0, 7.0, *f_squared);
+	printf("limite inferior: %lf, limite superior: %lf, f(2) = %lf", int_func.lowerl, int_func.upperl, (*(int_func.func))(2));
 	double res = do_integration(int_func, 0.0001);
 	
 	printf("Integral de x^2 de 0 a 2 é igual a %lf\n", res);

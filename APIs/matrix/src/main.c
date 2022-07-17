@@ -9,10 +9,10 @@
 #include "matrix.h"
 
 int main(int argc, char **argv) {
-	double m1Values[9] = {2, -2, -1, 3, -4, 1, 1, 1, 5};
-	double m2Values[16] =  {1, 0, 2, 0, 2, 1, 1, 1, 2, 3, 0, 1, -1, 1, 2, 2};
-	double m3Values[25] =  {1, 2, 3, -3, 1, 0, 4, 0, 0, 0, 0, 1, 0, 1, 1, 0, -6, 6, 1, 3, 0, 2, 0, -1, 1};
-	Matrix m; Matrix m2; Matrix m3;
+	// double m1Values[9] = {2, -2, -1, 3, -4, 1, 1, 1, 5};
+	// double m2Values[16] =  {1, 0, 2, 0, 2, 1, 1, 1, 2, 3, 0, 1, -1, 1, 2, 2};
+	// double m3Values[25] =  {1, 2, 3, -3, 1, 0, 4, 0, 0, 0, 0, 1, 0, 1, 1, 0, -6, 6, 1, 3, 0, 2, 0, -1, 1};
+	Matrix m2; // Matrix m3;
 	m2 = matrix_create();
 
 	// print_matrix("M", m2);
@@ -29,7 +29,7 @@ int main(int argc, char **argv) {
 	print_matrix("N", matrix_inverse(m2));
 	
 	
-	matrix_free(&m);
+
 	matrix_free(&m2);
 
 	return 0;

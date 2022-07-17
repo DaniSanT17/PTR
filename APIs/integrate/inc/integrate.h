@@ -3,14 +3,15 @@
 #ifndef _INTEGRATE_H
 #define _INTEGRATE_H
 
+typedef double (*FPoly)(double);
 
-typedef struct integrate {
+typedef struct integral {
 	double upperl;
 	double lowerl;
-    double (*fPoly)(double)
-} Integrate;
+    FPoly func;
+} Integral;
 
 
-Integrate build_integrate(double lowerl, double upperl, double *f);
-double do_integration(Integrate int_func, double step);
+Integral build_integrate(double lowerl, double upperl, FPoly f);
+double do_integration(Integral int_func, double step);
 #endif
