@@ -34,7 +34,7 @@ Matrix matrix_dif(Matrix A, Matrix B); // Done
 int matrix_compare(Matrix A, Matrix B); // Done
 double matrix_det(Matrix m); // Done
 Matrix matrix_transpose(Matrix m); // Done
-Matrix matrix_inverse(Matrix m);
+Matrix matrix_inverse(Matrix m); // Done
 Matrix matrix_print(Matrix m); // Done
 
 
