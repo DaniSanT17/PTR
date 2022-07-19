@@ -1,7 +1,7 @@
 /* ADT Matrix */
 
-#ifndef _MATRIX_H
-#define _MATRIX_H
+#ifndef _DSTRING_H
+#define _DSTRING_H
 
 typedef struct Matrix {
 	unsigned int nlins;

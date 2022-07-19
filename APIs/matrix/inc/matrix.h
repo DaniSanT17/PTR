@@ -35,7 +35,7 @@ int matrix_compare(Matrix A, Matrix B); // Done
 double matrix_det(Matrix m); // Done
 Matrix matrix_transpose(Matrix m); // Done
 Matrix matrix_inverse(Matrix m); // Done
-Matrix print_matrix(const char *const name, const Matrix m); // Done
+void print_matrix(const char *const name, const Matrix m); // Done
 
 
 #endif

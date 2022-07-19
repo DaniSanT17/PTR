@@ -5,7 +5,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include "matrix.h"
+#include "dstring.h"
 
 Matrix matrix_nul = {.nlins=0, .ncols=0, .values=NULL};
 
