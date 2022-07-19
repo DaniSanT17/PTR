@@ -6,26 +6,17 @@
 */
 
 #include <stdio.h>
-#include "matrix.h"
+#include "dstring.h"
 
-static void print_matrix(const char *const name, const Matrix m) {
-	printf("%s(%u,%u) = [\n", name, m.nlins, m.ncols);
-	for(int i = 0; i < matrix_nlins(m); i++) {
-		printf("\t[%4.4f", matrix_value(m, i, 0));
-		for(int j = 1; j < matrix_ncols(m); j++) {
-			printf(", %4.4f", matrix_value(m, i, j));
-		}
-		puts("]");
-	}
-	puts("]");
-}
 
 int main(int argc, char **argv) {
-	Matrix m = matrix_identity(2,3);
-	print_matrix("M", m);
-	
-	matrix_free(&m);
-	print_matrix("M", m);
-	
+	char *st = calloc(1,sizeof(char));
+	st[0]='o';
+	st[1]='i';
+	st[2]=' ';
+	st[3]='s';
+	st[4]='u';
+	DString *s = dstring_create(st);
+	printf("Tamanho da DString %d\n", s->size);
 	return 0;
 }
