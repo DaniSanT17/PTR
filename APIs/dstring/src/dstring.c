@@ -7,12 +7,84 @@
 
 #include "dstring.h"
 
-DString *dstring_create(char *string){
+
+DString *dstring_create(char *string, int size){
 	DString *dstr = malloc(sizeof(DString));
-	dstr->strBuff = malloc(sizeof(string));
+	dstr->strBuff = malloc(sizeof(char)*size);
 	dstr->strBuff = string;
-	dstr->size = sizeof(string)/sizeof(char);
+	dstr->size = size;
 
 	return dstr;
 };
+
+int dstring_size(DString *string){
+	return string->size;
+}
+
+DString *dstring_from_int(int size){
+	DString *dstr = malloc(sizeof(DString));
+	dstr->strBuff = malloc(sizeof(char)*size);
+	dstr->size = size;
+	
+	return dstr;
+}
+DString *dstring_from_double(double size){
+	DString *dstr = malloc(sizeof(DString));
+	dstr->strBuff = malloc(sizeof(char)*size);
+	dstr->size = size;
+	
+	return dstr;
+}
+DString *dstring_from_float(float size){
+	DString *dstr = malloc(sizeof(DString));
+	dstr->strBuff = malloc(sizeof(char)*size);
+	dstr->size = size;
+	
+	return dstr;
+}
+DString *dstring_from_long(int long size){
+	DString *dstr = malloc(sizeof(DString));
+	dstr->strBuff = malloc(sizeof(char)*size);
+	dstr->size = size;
+	
+	return dstr;
+}
+
+DString *dstring_from_dstring(DString *string){
+	DString *str = malloc(sizeof(DString));
+	str->strBuff = malloc(sizeof(char)*string->size);
+	str->size = string->size;
+
+	for(int i=0;i<str->size;i++) {
+		str->strBuff[i] = string->strBuff[i];
+	}
+	return str;
+}
+
+DString *dstring_concat(DString *string1, DString *string2){
+	DString *str = malloc(sizeof(DString));
+	str->strBuff = malloc(sizeof(char)*(string1->size+string2->size));
+	str->size = string1->size+string2->size;
+	for(int i=0;i<string1->size;i++){
+		str->strBuff[i] = string1->strBuff[i];
+	}
+	for(int i=string1->size;i<str->size;i++){
+		str->strBuff[i] = string2->strBuff[i];
+	}
+
+	return str;
+}
+
+void print_buffer(DString *str){
+	printf("Buffer da String Dinâmica: %c", str->strBuff[0]);
+	for(int i=1;i<str->size;i++){
+		printf(" %c", str->strBuff[i]);
+	}
+	printf("\n");
+}
+
+char *dstring_buffer(DString *string){
+	return string->strBuff;
+}
+
 
