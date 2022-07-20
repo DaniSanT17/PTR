@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
 	// Teste dstring_size(DString *string); // Done +-
 	printf("\nTamanhos das 3 primeiras DStrings: %d, %d, %d\n",dstring_size(s), dstring_size(s2), dstring_size(s3));
 	// Teste dstring_add_buffer(DString *str, char *string);
-	char *p = malloc(20*sizeof(char));
+	char *p = calloc(20, sizeof(char));
 	for(int i=0;i<20;i++){
 		p[i] = 97+i;
 	}

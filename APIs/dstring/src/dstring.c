@@ -20,7 +20,7 @@ DString *dstring_create(char *string, int size){
 
 void dstring_add_buffer(DString *str, char *string){
 	if(str && str->strBuff && string){
-		for(int i=0;(i<str->size);i++){
+		for(int i=0;i<str->size;i++){
 			if(!string[i]){
 				break;
 			}
