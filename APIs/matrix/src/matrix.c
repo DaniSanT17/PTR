@@ -52,11 +52,9 @@ Matrix matrix_identity(unsigned int nlins, unsigned int ncols) {
 
 void matrix_free(Matrix *m) {
 	if(m) {
-		printf("1\n");
 		free(m->values);
-		printf("2\n");
 		*m = matrix_nul;
-		printf("3\n");
+
 	}
 }
 
@@ -100,7 +98,7 @@ Matrix matrix_apply(double (*f)(double val), Matrix m) {
 	Matrix res;
 	res.nlins = m.nlins;
 	res.ncols = m.ncols;
-	m.values = calloc(res.nlins * res.ncols, sizeof(double));
+	res.values = calloc(res.nlins * res.ncols, sizeof(double));
 	if(m.values) {
 		for(int i=0; i < res.nlins; i++)
 			for(int j=0; j < res.ncols; j++)
