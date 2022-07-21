@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+
 #include "dstring.h"
 
 
@@ -78,7 +79,7 @@ DString *dstring_from_dstring(DString *string){
 	str->size = string->size;
 
 	for(int i=0;i<str->size;i++) {
-		if(!str->strBuff[i]){
+		if(!string->strBuff[i]){
 			break;
 		}
 		str->strBuff[i] = string->strBuff[i];
@@ -91,15 +92,9 @@ DString *dstring_concat(DString *string1, DString *string2){
 	str->strBuff = malloc(sizeof(char)*(string1->size+string2->size));
 	str->size = string1->size+string2->size;
 	for(int i=0;i<string1->size;i++){
-		if(!str->strBuff[i]){
-			break;
-		}
 		str->strBuff[i] = string1->strBuff[i];
 	}
 	for(int i=0;i<string2->size;i++){
-		if(!str->strBuff[i]){
-			break;
-		}
 		str->strBuff[i+string1->size] = string2->strBuff[i];
 	}
 
@@ -110,7 +105,7 @@ void print_buffer(DString *str){
 	if(!str->strBuff[0]){
 		printf("Buffer sem valor definido.");
 	}else{
-		printf("Buffer da String Dinâmica: %c", str->strBuff[0]);
+		printf("%c", str->strBuff[0]);
 	}
 	for(int i=1;i<str->size;i++){
 		if(!str->strBuff[i]){

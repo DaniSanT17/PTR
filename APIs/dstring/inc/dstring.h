@@ -3,6 +3,9 @@
 #ifndef _DSTRING_H
 #define _DSTRING_H
 
+
+#define BUFFER(ds) (dstring_buffer(ds))
+
 typedef struct dynamicString {
 	char *strBuff;
 	int size;

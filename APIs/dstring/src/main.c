@@ -1,16 +1,14 @@
-/*
-	main.c: Matrix test program
-	author: Andre Cavalcante
-	date: may, 2022
-	license: CC BY-SA
-*/
+
 #include <stdlib.h>
 #include <stdio.h>
 #include "dstring.h"
 
 
 int main(int argc, char **argv) {
-	// Teste dstring_create(char *string, int size); // Done +-
+	printf("###### Teste ADT DString #######\n");
+
+	printf("\n####### Teste dstring_create ##########\n"); 
+	printf("Criando dstrings com *char\n");
 	char *st = malloc(10*sizeof(char));
 	for(int i=0;i<10;i++){
 		st[i]= 65+i;
@@ -26,8 +24,11 @@ int main(int argc, char **argv) {
 	DString *s = dstring_create(st, 10);
 	DString *s2 = dstring_create(st2, 10);
 	DString *s3 = dstring_create(st3, 6);
+	printf("Dstring S1 = ") ;print_buffer(s);
+	printf("Dstring S2 = "); print_buffer(s2);
+	printf("Dstring S3 = "); print_buffer(s3);
 
-	// Teste dstring_from_char(char string); // Done +-
+	printf("\n####### Teste dstring_from_char ##########\n"); 
 	DString *s4 = dstring_from_char('a');
 	print_buffer(s4);
 	DString *s5 = dstring_from_char('b');
@@ -35,30 +36,45 @@ int main(int argc, char **argv) {
 	DString *s6 = dstring_from_char('c');
 	print_buffer(s6);
 	printf("\nTamanhos da 4, 5 e 6 DStrings: %d, %d, %d\n",dstring_size(s4), dstring_size(s5), dstring_size(s6));
-	// Teste dstring_from_int(int size); // Done +-
+
+	printf("\n####### Teste dstring_from_int ##########\n"); 
 	DString *s7 = dstring_from_int(2);
+	printf("Alocando memória para dstring de tamanho: %d\n", s7->size);
 	DString *s8 = dstring_from_int(3);
-	// Teste dstring_from_double(double size); // Done +-
+	printf("Alocando memória para dstring de tamanho: %d\n", s8->size);
+
+	printf("\n####### Teste dstring_from_double ##########\n"); 
 	double d = 4.232145125;
 	DString *s9 = dstring_from_double(d);
-	// Teste dstring_from_float(float size); // Done +-
+	printf("Alocando memória para dstring de tamanho: %d\n", s9->size);
+
+	printf("\n####### Teste dstring_from_float ##########\n"); 
 	float e = 5.232145125;
 	DString *s10 = dstring_from_float(e);
-	// Teste dstring_from_long(int long size); // Done +-
+	printf("Alocando memória para dstring de tamanho: %d\n", s10->size);
+
+	printf("\n####### Teste dstring_from_long ##########\n"); 
 	long f = 12124124;
 	DString *s11 = dstring_from_long(f);
-	print_buffer(s11);
-	printf("\nTamanhos da demais DStrings: %d, %d, %d, %d, %d\n\n",dstring_size(s7), dstring_size(s8), dstring_size(s9), dstring_size(s10), dstring_size(s11));
-	// Teste dstring_from_dstring(DString *string); // Done +-
+	printf("Alocando memória para dstring de tamanho: %d\n", s11->size);
+
+	printf("\n####### Teste dstring_from_dstring ##########\n"); 
 	DString *s12 = dstring_from_dstring(s);
-	// Teste dstring_concat(DString *string1, DString *string2); // Done +-
+	printf("S1 = "); print_buffer(s);
+	printf("DString criada S12 = "); print_buffer(s12);
+
+	printf("\n####### Teste dstring_concat ##########\n");
+	printf("Concatenando DStrings S1, S2 e S3:\n"); 
 	DString *s13 = dstring_concat(s,s2);
-	print_buffer(s13);
+	printf("S1 + S2 = "); print_buffer(s13);
 	DString *s14 = dstring_concat(s13,s3);
-	print_buffer(s14);
-	// Teste dstring_size(DString *string); // Done +-
+	printf("S1 + S2 + S3 = ");print_buffer(s14);
+
+	printf("\n####### Teste dstring_size ##########\n"); 
 	printf("\nTamanhos das 3 primeiras DStrings: %d, %d, %d\n",dstring_size(s), dstring_size(s2), dstring_size(s3));
-	// Teste dstring_add_buffer(DString *str, char *string);
+
+	printf("\n####### Teste dstring_add_buffer ##########\n"); 
+	printf("Adicionando buffer nas strings com memórias alocadas anteriormente:\n");
 	char *p = calloc(20, sizeof(char));
 	for(int i=0;i<20;i++){
 		p[i] = 97+i;
@@ -73,11 +89,17 @@ int main(int argc, char **argv) {
 	printf("Float 5.232145125: "); print_buffer(s10);
 	dstring_add_buffer(s11, p);
 	printf("Long 12124124: "); print_buffer(s11);
-	// Teste free_dstring(DString *str); //Done +-
 
-	
-	
-	
+	printf("\n######## Teste Define BUFFER ########\n");
+	char *buff = BUFFER(s);
+	printf("Imprimindo buffer coletado da string S1: \n");
+	for(int i =0;i<s->size;i++){
+		printf("%c", buff[i]);
+	}
+
+
+	printf("\n\n####### Teste free_dstring ##########\n"); 
+
 
 	free_dstring(s);
 	free_dstring(s2);
@@ -94,13 +116,7 @@ int main(int argc, char **argv) {
 	free_dstring(s14);
 	print_buffer(s);
 	
-	printf("\n\n");
-	// char *p = malloc(sizeof(char));
-	// if(p){
-	// 	printf("Sim!");
-	// }else{
-	// 	printf("Não!");
 
-	// }
+
 	return 0;
 }

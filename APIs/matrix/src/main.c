@@ -1,9 +1,3 @@
-/*
-	main.c: Matrix test program
-	author: Andre Cavalcante
-	date: may, 2022
-	license: CC BY-SA
-*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,6 +10,8 @@ double power_3(double a){
 	return a*a*a;
 }
 int main(int argc, char **argv) {
+	printf("###### Teste ADT Matrix #######\n");
+
 	double m1Values[9] = {2, -2, -1, 3, -4, 1, 1, 1, 1};
 	double m2Values[16] =  {1, 0, 2, 0, 2, 1, 1, 1, 2, 3, 0, 1, -1, 1, 2, 2};
 	double m3Values[25] =  {1, 2, 3, -3, 1, 0, 4, 0, 0, 0, 0, 1, 2, 1, 1, 0, -6, 6, 1, 3, 0, 2, 0, -1, 1};
