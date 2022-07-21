@@ -112,9 +112,9 @@ Matrix matrix_apply(double (*f)(double val), Matrix m) {
 Matrix matrix_create(){
 	Matrix res = matrix_nul;
 	int nlins, ncols;
-	printf("Lines number: ");
+	printf("Número de linhas: ");
 	scanf("%d", &nlins);
-	printf("Columns number: ");
+	printf("Número de colunas: ");
 	scanf("%d", &ncols);
 	if(nlins > 0 && ncols >0)
 	{
@@ -130,7 +130,7 @@ Matrix matrix_create(){
 					}
 			}
 	}else {
-		printf("ERROR: columns number and lines number must be greater than 0!\n");
+		printf("ERRO: O número de colunas e linhas devem ser maior que 0!\n");
 	}
 	return res;
 }
@@ -164,7 +164,7 @@ Matrix matrix_sum(Matrix A, Matrix B){
 			}}
 		return res;
 	}else{
-		printf("ERROR: Matrix sizes cannot be diferents for sum operation.\n");
+		printf("ERRO: As matrizes devem ter o mesmo tamanho\n");
 		return matrix_nul;
 
 	}
@@ -187,7 +187,7 @@ Matrix matrix_dif(Matrix A, Matrix B){
 		}}
 		return res;
 	}else{
-		printf("ERROR: Matrix sizes cannot be diferents for sum operation.\n");
+		printf("ERRO: As matrizes devem ter o mesmo tamanho para a operação de soma!\n");
 		return matrix_nul;
 	}
 
@@ -212,7 +212,7 @@ Matrix matrix_mul(Matrix A, Matrix B){
 		}
 
 	}else{
-		printf("ERROR: Matrix A column number and Matrix B lines number cannot be diferents for multiplication operation.\n");
+		printf("ERRO: O número de colunas da matriz A deve ser igual ao número de linhas da matriz B\n");
 	}
 	return matrix_nul;
 	
@@ -240,7 +240,7 @@ Matrix matrix_scalar_dif(double n, Matrix m){
 	if(m.values) {
 		for(int i=0; i < res.nlins; i++)
 			for(int j=0; j < res.ncols; j++)
-				res.values[i*res.ncols + j] = n - m.values[i*res.ncols + j];
+				res.values[i*res.ncols + j] =  m.values[i*res.ncols + j] - n;
 		return res;
 	}
 	else
@@ -335,7 +335,7 @@ double matrix_det(Matrix m){
 			return -1.0 * temp;
 
 	}else{
-		printf("ERROR: The input is not a Square Matrix or his value is NULL!!!\n");
+		printf("ERRO: A matriz de entrada deve ser quadrada!!!\n");
 	}
 	return 0;
 }
@@ -379,7 +379,7 @@ Matrix matrix_inverse(Matrix m){
 		}
 		return id;
 	}else{
-		printf("ERROR: The input matrix must be a square\n");
+		printf("ERROR: A matriz de entrada deve ser quadrada!!!\n");
 		return matrix_nul;
 	}
 }

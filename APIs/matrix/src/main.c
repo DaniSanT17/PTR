@@ -16,65 +16,84 @@ double power_3(double a){
 	return a*a*a;
 }
 int main(int argc, char **argv) {
-	double m1Values[9] = {0, -2, -1, 3, -4, 1, 1, 1, 0};
+	double m1Values[9] = {2, -2, -1, 3, -4, 1, 1, 1, 1};
 	double m2Values[16] =  {1, 0, 2, 0, 2, 1, 1, 1, 2, 3, 0, 1, -1, 1, 2, 2};
-	double m3Values[25] =  {1, 2, 3, -3, 1, 0, 4, 0, 0, 0, 0, 1, 0, 1, 1, 0, -6, 6, 1, 3, 0, 2, 0, -1, 1};
-	printf("Teste  matrix_zeros\n");
+	double m3Values[25] =  {1, 2, 3, -3, 1, 0, 4, 0, 0, 0, 0, 1, 2, 1, 1, 0, -6, 6, 1, 3, 0, 2, 0, -1, 1};
+	printf("\n########### Teste  matrix_zeros ##########\n");
 	Matrix m = matrix_zeros(5, 5);
 	print_matrix("Zeros", m);
 	
-	printf("Teste matrix_ones\n");
+	printf("\n######### Teste matrix_ones ########\n");
 	Matrix m2 = matrix_ones(6, 6);
 	print_matrix("1s", m2);
 
-	printf("Teste matrix_identity\n");
+	printf("\n########### Teste matrix_identity ###########\n");
 	Matrix m3 = matrix_identity(5, 5);
 	print_matrix("Id", m3);
 	
-	// Matrix matrix_copy(Matrix m);
-	// void matrix_free(Matrix *m);
+	printf("\n###########Teste matrix_copy e matrix_free #############\n");
 	matrix_free(&m);
 	m = matrix_copy(m3);
 	print_matrix("New Id", m);
 	
 
-	// Matrix matrix_create(); // Done
-	// Matrix matrix_apply(double (*f)(double val), Matrix m);
-	Matrix m4 = matrix_create();
+	printf("\n########## Teste matrix_apply com função x^2 #########");
+	Matrix m4; m4.ncols = 5; m4.nlins = 5;
+	m4.values = malloc(sizeof(double)*25);
+	for(int i=0;i<25;i++){
+		m4.values[i] = i;
+	}
+	print_matrix("M4 ", m4);
 	m4 = matrix_apply(*power_2,m4);
-	print_matrix("Power2 ", m4);
-	Matrix m5 = matrix_create();
+	print_matrix("Potência 2 de M4 ", m4);
+
+	printf("\n########## Teste matrix_apply com função x^3 #########");
+
+	Matrix m5; m5.ncols = 5; m5.nlins = 5;
+	m5.values = malloc(sizeof(double)*25);
+	for(int i=0;i<25;i++){
+		m5.values[i] = i;
+	}
+	print_matrix("M5 ", m5);
 	m5 = matrix_apply(*power_3,m5);
-	print_matrix("Power3 ", m5);
+	print_matrix("Potência 3 de M5 ", m5);
 
-	// double       matrix_value(Matrix m, int i, int j);
-	printf("Primeiros de cada 1 %lf %lf %lf %lf %lf\n",matrix_value(m, 0,0), matrix_value(m2, 0,0),matrix_value(m3, 0,0),matrix_value(m4, 0,0),matrix_value(m5, 0,0));
+	printf("\n##########Teste matrix_value ############\n");
+	printf("\nPrimeiros das matrizes M1, M2, M3, M4 e M5: %lf %lf %lf %lf %lf\n",matrix_value(m, 0,0), matrix_value(m2, 0,0),matrix_value(m3, 0,0),matrix_value(m4, 0,0),matrix_value(m5, 0,0));
 
-	// unsigned int matrix_nlins(Matrix m);
-	// unsigned int matrix_ncols(Matrix m);
-	printf("Tamanho das matrizes 4: %d e %d\n", matrix_nlins(m4), matrix_ncols(m4));
+	printf("\n########## Teste matrix_nlins e matrix_ncols############\n");
+	printf("\nTamanho da matriz 4: %d x %d\n", matrix_nlins(m4), matrix_ncols(m4));
 
-	// Matrix matrix_scalar_mul(double n, Matrix m); // Done
+	printf("\n########## Teste matrix_scalar_mul, matrix_scalar_sum e matrix_scalar_dif ############\n");
+	print_matrix("M6 ", m4);
 	Matrix m6 = matrix_scalar_mul(2, m4);
-	print_matrix("Escalar x 2 ", m6);
-	// Matrix matrix_scalar_sum(double n, Matrix m); // Done
+	print_matrix("M6 * 2 ", m6);
+
 	m6 = matrix_scalar_sum(10, m6);
-	print_matrix("Escalar + 10 ", m6);
-	// Matrix matrix_scalar_dif(double n, Matrix m); // Done
+	print_matrix("M6 + 10 ", m6);
+
 	m6 = matrix_scalar_dif(20, m6);
-	print_matrix("Escalar - 2 ", m6);
-	// Matrix matrix_mul(Matrix A, Matrix B); // Done
+	print_matrix("M6 - 20 ", m6);
+
+	printf("\n########## Teste matrix_mul, matrix_sum e matrix_dif ############\n");
+	print_matrix("M4 ", m4);
+	print_matrix("M5 ", m5);
+	print_matrix("M6 ", m6);
 	Matrix m7 = matrix_mul(m6, m5);
-	print_matrix("m6 x m5 ", m7);
-	// Matrix matrix_sum(Matrix A, Matrix B); // Done
+	print_matrix("M6 * M5 ", m7);
 	Matrix m8 = matrix_sum(m4, m5);
-	print_matrix("m4 + m5 ", m8);
-	// Matrix matrix_dif(Matrix A, Matrix B); // Done
+	print_matrix("M4 + M5 ", m8);
 	Matrix m9 = matrix_dif(m4, m5);
-	print_matrix("m4 - m5 ", m9);
-	// int matrix_compare(Matrix A, Matrix B); // Done
-	printf("M1 = M3? %d\nM4 = M6? %d\n",matrix_compare(m,m3),matrix_compare(m4,m6));
-	// double matrix_det(Matrix m); // Done
+	print_matrix("M4 - M5 ", m9);
+
+	printf("\n########## Teste matrix_compare ############\n");
+	print_matrix("M1 ", m);
+	print_matrix("M3 ", m3);
+	print_matrix("M4 ", m4);
+	print_matrix("M6 ", m6);
+	printf("Comparando M1 e M3? R=%d | Verdadeiro = 1\nComparando M4 e M6? R=%d | Falso = 0\n",matrix_compare(m,m3),matrix_compare(m4,m6));
+
+	printf("\n########## Teste matrix_det, matrix_transpose e matrix_inverse ############\n"); 
 	Matrix m10; m10.ncols = 3; m10.nlins = 3; m10.values = malloc(sizeof(double)*9);
 	Matrix m11; m11.ncols = 4; m11.nlins = 4; m11.values = malloc(sizeof(double)*16);
 	Matrix m12; m12.ncols = 5; m12.nlins = 5; m12.values = malloc(sizeof(double)*25);
@@ -87,26 +106,35 @@ int main(int argc, char **argv) {
 	for(int i=0;i<25;i++){
 		m12.values[i]=m3Values[i];
 	}
-	print_matrix("m10 ", m10);print_matrix("m11 ", m11);print_matrix("m12 ", m12);
-	printf("Determinantes das maztrizes acima em ordem são: %lf %lf %lf\n", matrix_det(m10), matrix_det(m11), matrix_det(m12));
-	// Matrix matrix_transpose(Matrix m); // Done
-	print_matrix("m10T ", matrix_transpose(m10));
-	print_matrix("m11T ", matrix_transpose(m11));
-	print_matrix("m12T ", matrix_transpose(m12));
-	// Matrix matrix_inverse(Matrix m); // Done
+
+
+	print_matrix("M10 ", m10);
+	printf("Determinante de M10: %lf\n", matrix_det(m10));
+	print_matrix("M10^T ", matrix_transpose(m10));
 	Matrix m10i = matrix_inverse(m10); 
-	print_matrix("m10i ", m10i);
-	print_matrix("m10 x m10i = id", matrix_mul(m10,m10i));
+	print_matrix("M10^-1 ", m10i);
+	print_matrix("M10 x M10^-1 = id", matrix_mul(m10,m10i));
+
+	print_matrix("M11 ", m11);
+	printf("Determinante de M11: %lf\n", matrix_det(m11));
+	print_matrix("M11^T ", matrix_transpose(m11));
 	Matrix m11i = matrix_inverse(m11); 
-	print_matrix("m11i ", m11i);
-	print_matrix("m10 x m10i = id", matrix_mul(m11,m11i));
+	print_matrix("M11^-1 ", m11i);
+	print_matrix("M11 x M11^-1 = id", matrix_mul(m11,m11i));
+
+
+	print_matrix("M12 ", m12);
+	printf("Determinante de M12: %lf\n", matrix_det(m12));
+	print_matrix("M12^T ", matrix_transpose(m12));
 	Matrix m12i = matrix_inverse(m12); 
-	print_matrix("m11i ", m12i);
-	print_matrix("m10 x m10i = id", matrix_mul(m12,m12i));
-	// void print_matrix(const char *const name, const Matrix m); // Done
-	
-	
-	
+	print_matrix("M12^-1 ", m12i);
+	print_matrix("M12 x M12^-1 = id", matrix_mul(m12,m12i));
+
+	printf("\n########## Teste matrix_create ############\n"); 
+
+	printf("Digite as dimensões de sua matriz:\n");
+	Matrix m13 = matrix_create();
+	print_matrix("M13 ", m13);
 
 	matrix_free(&m);
 	matrix_free(&m2);
