@@ -4,13 +4,24 @@
 
 #include "integrate.h"
 
-Integral build_integrate(double lowerl, double upperl, FPoly f){
-    Integral int_func;
-    int_func.lowerl = lowerl;
-    int_func.upperl = upperl;
-    int_func.func = f;
+Integral *build_integrate(double lowerl, double upperl, FPoly f){
+    Integral *int_func = malloc(sizeof(Integral));
+    int_func->lowerl = lowerl;
+    int_func->upperl = upperl;
+    int_func->func = f;
 
     return int_func;
+}
+
+void integrate_set_upl(Integral *int_func, double upperl){
+    int_func->upperl = upperl;
+}
+
+void integrate_set_lowl(Integral *int_func, double lowerl){
+    int_func->lowerl = lowerl;
+}
+void integrate_set_fun(Integral *int_func, FPoly f){
+    int_func->func = f;
 }
 
 double do_integration(Integral int_func, double step){

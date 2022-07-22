@@ -1,17 +1,16 @@
-/* ADT Matrix */
+/* ADT DSTRING */
 
 #ifndef _DSTRING_H
 #define _DSTRING_H
-
-
-#define BUFFER(ds) (dstring_buffer(ds))
 
 typedef struct dynamicString {
 	char *strBuff;
 	int size;
 } DString;
 
-DString *dstring_create(char *string, int size); // Done 
+#define BUFFER(ds) (dstring_buffer(ds))
+
+DString *dstring_create(char *string); // Done 
 void dstring_add_buffer(DString *str, char *string); // Done
 DString *dstring_from_char(char string); // Done 
 DString *dstring_from_int(int size); // Done 

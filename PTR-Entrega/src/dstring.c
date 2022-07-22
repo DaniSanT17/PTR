@@ -10,9 +10,12 @@
 #include "dstring.h"
 
 
-DString *dstring_create(char *string, int size){
+DString *dstring_create(char *string){
 	DString *dstr = malloc(sizeof(DString));
-	dstr->strBuff = malloc(sizeof(char)*size);
+	int size=0;
+	while(string[size]){
+		size++;
+	}
 	dstr->strBuff = string;
 	dstr->size = size;
 
@@ -91,11 +94,15 @@ DString *dstring_concat(DString *string1, DString *string2){
 	DString *str = malloc(sizeof(DString));
 	str->strBuff = malloc(sizeof(char)*(string1->size+string2->size));
 	str->size = string1->size+string2->size;
-	for(int i=0;i<string1->size;i++){
+	int i=0,j;
+	while((string1->strBuff[i]) && i<string1->size){
 		str->strBuff[i] = string1->strBuff[i];
+		i++;
 	}
-	for(int i=0;i<string2->size;i++){
-		str->strBuff[i+string1->size] = string2->strBuff[i];
+	j=i;
+	while((string2->strBuff[i-j]) && i<str->size){
+		str->strBuff[i] = string2->strBuff[i-j];
+		i++;
 	}
 
 	return str;
