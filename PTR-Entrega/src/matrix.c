@@ -113,25 +113,36 @@ Matrix matrix_create(){
 	Matrix res = matrix_nul;
 	int nlins, ncols;
 	printf("Número de linhas: ");
-	scanf("%d", &nlins);
-	printf("Número de colunas: ");
-	scanf("%d", &ncols);
-	if(nlins > 0 && ncols >0)
-	{
-		res.nlins = nlins;
-		res.ncols = ncols;
-		res.values = calloc(res.nlins * res.ncols, sizeof(double));
-		for(int i = 0; i < nlins; i++)
-			{
-					for(int j = 0; j < ncols; j++)
+	if(scanf("%d", &nlins)==1){
+		printf("Número de colunas: ");
+		if(scanf("%d", &ncols)==1){
+			if(nlins > 0 && ncols >0){
+				res.nlins = nlins;
+				res.ncols = ncols;
+				res.values = calloc(res.nlins * res.ncols, sizeof(double));
+				for(int i = 0; i < nlins; i++)
 					{
-							printf("M[%d ; %d] => ", i+1, j+1);
-							scanf("%lf", &VALUES(res, i, j));
+							for(int j = 0; j < ncols; j++)
+							{
+									printf("M[%d ; %d] => ", i+1, j+1);
+									if(scanf("%lf", &VALUES(res, i, j))==0){
+										printf("Falha em ler o valor de entrada.\n");
+									}
+									;
+							}
 					}
-			}
-	}else {
-		printf("ERRO: O número de colunas e linhas devem ser maior que 0!\n");
+		}else {
+			printf("ERRO: O número de colunas e linhas devem ser maior que 0!\n");
+		}
+
+		}else{
+			printf("Falha em ler o número de colunas.\n");
+		}
+		
+	}else{
+		printf("Falha em ler o número de linhas.\n");
 	}
+	
 	return res;
 }
 

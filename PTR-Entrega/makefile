@@ -8,12 +8,9 @@ objects = $(patsubst $(srcdir)/%.c, $(objdir)/%.o, $(sources))
 srcdir=./src
 incdir=./inc
 objdir=./obj
-libdir=./lib
 
 CC=gcc
 CFLAGS=-Wall -O3 -I $(incdir)
-CPPFLAGS=
-LDFLAGS=-L $(libdir)
 LDLIBS=-ggdb
 
 all: $(PRJ)
@@ -25,15 +22,13 @@ showvars:
 	@echo Objects:  $(objects)
 	@echo Includes: $(includes)
 	@echo CC: $(CC)
-	@echo FLAGS: $(CFLAGS) $(CPPFLAGS)
-	@echo LDFLAGS: $(LDFLAGS)
 	@echo LIBS: $(LDLIBS)
 
 $(PRJ): $(srcdir)/main.c $(objects) $(includes)
-	$(CC) $(CFLAGS) $(CPPFLAGS) -o $(PRJ) $(srcdir)/main.c $(includes) $(objects) $(LDFLAGS) $(LDLIBS)
+	$(CC) $(CFLAGS) -o $(PRJ) $(srcdir)/main.c $(includes) $(objects) $(LDLIBS)
 
 $(objdir)/%.o: $(srcdir)/%.c
-	$(CC) -c $(CFLAGS) $(CPPFLAGS) -o $@ $<
+	$(CC) -c $(CFLAGS) -o $@ $<
 
 .PHONY: clean run
 
