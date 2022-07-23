@@ -1,3 +1,8 @@
+/*
+	Implementação da ADT Integral
+	Autor: Daniel Santiago da Silva
+*/
+
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>

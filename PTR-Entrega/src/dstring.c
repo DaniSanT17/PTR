@@ -1,5 +1,6 @@
 /*
 	Implementação da ADT Dynamic String
+	Autor: Daniel Santiago da Silva
 */
 
 #include <math.h>

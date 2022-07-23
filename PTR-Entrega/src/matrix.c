@@ -1,5 +1,6 @@
 /*
 	Implementação da ADT Matrix
+	Autores: André Cavalcante e Daniel Santiago da Silva
 */
 
 #include <math.h>

@@ -1,4 +1,6 @@
-/* ADT DSTRING */
+/* ADT DSTRING 
+Autor: Daniel Santiago da Silva
+*/
 
 #ifndef _DSTRING_H
 #define _DSTRING_H

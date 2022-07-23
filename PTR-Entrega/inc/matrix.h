@@ -1,4 +1,6 @@
-/* ADT Matrix */
+/* ADT Matrix 
+Autores: André Cavalcante e Daniel Santiago da Silva
+*/
 //
 #ifndef _MATRIX_H
 #define _MATRIX_H

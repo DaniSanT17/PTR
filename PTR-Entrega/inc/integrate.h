@@ -1,4 +1,7 @@
-/* ADT INTEGRAL */
+/* ADT INTEGRAL 
+Autor: Daniel Santiago da Silva
+*/
+
 
 #ifndef _INTEGRATE_H
 #define _INTEGRATE_H
