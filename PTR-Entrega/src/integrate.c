@@ -25,13 +25,16 @@ void integrate_set_fun(Integral *int_func, FPoly f){
 }
 
 double do_integration(Integral int_func, double step){
-    double sum = int_func.func(int_func.lowerl);
-    for(double i=int_func.lowerl+step;i<int_func.upperl-step;i+=step){
-        sum = sum + 2*(int_func.func(i));
-    }
-    sum = sum + int_func.func(int_func.upperl);
+    if(int_func.func){
+        double sum = int_func.func(int_func.lowerl);
+        for(double i=int_func.lowerl+step;i<int_func.upperl-step;i+=step){
+            sum = sum + 2*(int_func.func(i));
+        }
+        sum = sum + int_func.func(int_func.upperl);
 
-    return (step/2)*sum;
+        return (step/2)*sum;
+    }
+    return 0;
 }
 
 
